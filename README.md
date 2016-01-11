@@ -10,7 +10,7 @@ The bulk of the work for this was done by Eric Maycock for the Philio PAN04 modu
 First, we need to install the custom device type into your SmartThings account.  Don't worry, this won't hurt a bit.
 
 1. Go ahead and install the module, and let SmartThings set it up as a "Z-Wave Device Multichannel".
-1. Copy the code from [monoprice-11990.groovy](https://raw.githubusercontent.com/justintime/SmartThings-Monoprice-11990/master/monoprice-11990.groovy) into your clipboard.
+1. Copy the code from [monoprice-11990-dual-relay-module.groovy](https://raw.githubusercontent.com/justintime/ST-Monoprice-Dual-Relay-Module/master/devicetypes/justintime/monoprice-11990-dual-relay-module.src/monoprice-11990-dual-relay-module.groovy) into your clipboard.
 1. Log into your developer account at https://graph.api.smartthings.com/  You can sign up for a new account if you don't already have one.  This site is referred to as "the IDE" from here out.
 1. Click "My Device Types", then "New Device Type", then click the "From Code" tab.
 1. Paste in the code you copied to your clipboard, and click the "Create" button.
