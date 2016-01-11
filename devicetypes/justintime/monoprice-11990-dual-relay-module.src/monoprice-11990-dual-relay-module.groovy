@@ -96,18 +96,6 @@ def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cm
     response(delayBetween(result, 1000)) // returns the result of reponse()
 }
 
-def zwaveEvent(physicalgraph.zwave.commands.meterv3.MeterReport cmd) {
-    def result
-    if (cmd.scale == 0) {
-        result = createEvent(name: "energy", value: cmd.scaledMeterValue, unit: "kWh")
-    } else if (cmd.scale == 1) {
-        result = createEvent(name: "energy", value: cmd.scaledMeterValue, unit: "kVAh")
-    } else {
-        result = createEvent(name: "power", value: cmd.scaledMeterValue, unit: "W")
-    }
-    return result
-}
-
 def zwaveEvent(physicalgraph.zwave.commands.multichannelv3.MultiChannelCapabilityReport cmd) {
     log.debug "multichannelv3.MultiChannelCapabilityReport $cmd"
     if (cmd.endPoint == 2 ) {
