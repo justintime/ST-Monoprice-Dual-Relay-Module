@@ -1,4 +1,4 @@
-/**
+  /**
  *  Dual Relay Adapter (i.e. Enerwave ZWN-RSM2 Adapter, Monoprice Dual Relay, Philio PAN04)
  *
  *  Copyright 2015 Justin Ellison
@@ -16,13 +16,13 @@
  *
  */
 definition(
-    name: "Dual Relay Adapter",
-    namespace: "justintime",
-    author: "Justin Ellison",
-    description: "Associates Dual Relay Switch Modules with one or two standard SmartThings 'virtual switch' devices for compatibility with standard control and automation techniques",
-    category: "My Apps",
-    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
-    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+  name: "Dual Relay Adapter",
+  namespace: "justintime",
+  author: "Justin Ellison",
+  description: "Associates Dual Relay Switch Modules with one or two standard SmartThings 'virtual switch' devices for compatibility with standard control and automation techniques",
+  category: "My Apps",
+  iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+  iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
 
 
 preferences {
@@ -58,62 +58,61 @@ def updated() {
 def switchHandler(evt) {
   //log.debug "switchHandler: ${evt.value}, ${evt.deviceId}, ${evt.source}, ${switch2.id}"
   switch (evt.deviceId) {
-  	case switch1.id:
-		switch (evt.value) {
-        	case 'on':
-        		log.debug "switch 1 on"
-                rsm.on1()
-                break
-        	case 'off':
-        		log.debug "switch 1 off"
-                rsm.off1()
-                break
-            }
+    case switch1.id:
+      switch (evt.value) {
+        case 'on':
+          log.debug "switch 1 on"
+            rsm.on1()
+            break
+        case 'off':
+          log.debug "switch 1 off"
+            rsm.off1()
+            break
+          }
         break
     case switch2.id:
-    	switch (evt.value) {
-        	case 'on':
-        		log.debug "switch 2 on"
-                rsm.on2()
-                break
-        	case 'off':
-        		log.debug "switch 2 off"
-                rsm.off2()
-                break
-            }
+      switch (evt.value) {
+        case 'on':
+          log.debug "switch 2 on"
+            rsm.on2()
+            break
+        case 'off':
+          log.debug "switch 2 off"
+            rsm.off2()
+            break
+          }
         break
-
     default:
-    	pass
+      pass
   }
 }
 
 def rsmHandler(evt) {
-	log.debug "$evt.name $evt.value"
+  log.debug "$evt.name $evt.value"
   if (evt.name == "switch1") {
-  	switch (evt.value) {
-      	case 'on':
-          	switch1.on()
-              break
-          case 'off':
-          	switch1.off()
-              break
+    switch (evt.value) {
+      case 'on':
+        switch1.on()
+        break
+      case 'off':
+        switch1.off()
+        break
     }
   }
   else if (evt.name == "switch2") {
-  	switch (evt.value) {
-      	case 'on':
-          	switch2.on()
-              break
-          case 'off':
-          	switch2.off()
-              break
+    switch (evt.value) {
+      case 'on':
+        switch2.on()
+        break
+      case 'off':
+        switch2.off()
+        break
     }
   }
 }
 
 def rsmRefresh() {
-	rsm.refresh()
+  rsm.refresh()
 }
     
 def initialize() {
