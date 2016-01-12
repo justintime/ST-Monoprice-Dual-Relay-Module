@@ -56,31 +56,31 @@ def updated() {
 }
 
 def switchHandler(evt) {
-  //log.debug "switchHandler: ${evt.value}, ${evt.deviceId}, ${evt.source}, ${switch2.id}"
+  log.debug "switchHandler: ${evt.value}, ${evt.deviceId}, ${evt.source}, ${switch2.id}"
   switch (evt.deviceId) {
     case switch1.id:
       switch (evt.value) {
         case 'on':
           log.debug "switch 1 on"
-            rsm.on1()
-            break
+          rsm.on1()
+          break
         case 'off':
           log.debug "switch 1 off"
-            rsm.off1()
-            break
-          }
+          rsm.off1()
+          break
+        }
         break
     case switch2.id:
       switch (evt.value) {
         case 'on':
           log.debug "switch 2 on"
-            rsm.on2()
-            break
+          rsm.on2()
+          break
         case 'off':
           log.debug "switch 2 off"
-            rsm.off2()
-            break
-          }
+          rsm.off2()
+          break
+        }
         break
     default:
       pass
