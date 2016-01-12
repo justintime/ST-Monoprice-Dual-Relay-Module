@@ -21,6 +21,13 @@
  *	
  */
  
+
+preferences {
+  input ("delayMillis", "number", title: "Command delay in ms", 
+    description: "Time in milliseconds to delay sending multiple commands.", defaultValue: 0,
+    required: false, range: "0..5000")
+}
+
 metadata {
     definition (name: "Monoprice 11990 Dual Relay Module", namespace: "justintime", author: "Justin Ellison") {
         capability "Polling"
@@ -92,8 +99,7 @@ def zwaveEvent(physicalgraph.zwave.commands.switchbinaryv1.SwitchBinaryReport cm
     def result = []
     result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:2).format()
     result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:2, commandClass:37, command:2).format()
-    //result << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:3, commandClass:37, command:2).format()
-    response(delayBetween(result, 1000)) // returns the result of reponse()
+    response(delayBetween(result, settings.delayMillis)) // returns the result of reponse()
 }
 
 def zwaveEvent(physicalgraph.zwave.commands.multichannelv3.MultiChannelCapabilityReport cmd) {
@@ -139,8 +145,7 @@ def refresh() {
 	def cmds = []
 	cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:2).format()
     cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:2, commandClass:37, command:2).format()
-    //cmds << zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:3, commandClass:37, command:2).format()
-	delayBetween(cmds, 1000)
+	delayBetween(cmds, settings.delayMillis)
 }
 
 def poll() {
@@ -148,15 +153,15 @@ def poll() {
 	delayBetween([
     	zwave.switchBinaryV1.switchBinaryGet().format(),
     	zwave.manufacturerSpecificV1.manufacturerSpecificGet().format()
-	], 1000)
+	], settings.delayMillis)
 }
 
 def on1() {
-    log.debug "Executing 'on1'"
+    log.debug "Executing 'on1' with delay of ${settings.delayMillis}"
     delayBetween([
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:1, parameter:[255]).format(),
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:2).format()
-    ], 1000)
+    ], settings.delayMillis)
 }
 
 def off1() {
@@ -164,7 +169,7 @@ def off1() {
     delayBetween([
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:1, parameter:[0]).format(),
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:1, destinationEndPoint:1, commandClass:37, command:2).format()
-    ], 1000)
+    ], settings.delayMillis)
 }
 
 def on2() {
@@ -172,7 +177,7 @@ def on2() {
     delayBetween([
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:2, destinationEndPoint:2, commandClass:37, command:1, parameter:[255]).format(),
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:2, destinationEndPoint:2, commandClass:37, command:2).format()
-    ], 1000)
+    ], settings.delayMillis)
 }
 
 def off2() {
@@ -180,5 +185,5 @@ def off2() {
     delayBetween([
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:2, destinationEndPoint:2, commandClass:37, command:1, parameter:[0]).format(),
         zwave.multiChannelV3.multiChannelCmdEncap(sourceEndPoint:2, destinationEndPoint:2, commandClass:37, command:2).format()
-    ], 1000)
+    ], settings.delayMillis)
 }
