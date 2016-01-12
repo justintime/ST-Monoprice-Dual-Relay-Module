@@ -34,29 +34,29 @@ preferences {
 }
 
 def installed() {
-  log.debug "Installed!"
-  subscribe(rsm, "switch1", rsmHandler)
-  subscribe(rsm, "switch2", rsmHandler)
-  subscribe(switch1, "switch", switchHandler)
-  subscribe(switch2, "switch", switchHandler)
-
+  log.debug "Installed with settings: ${settings}"
   initialize()
 }
 
 def updated() {
-  log.debug "Updated!"
-  unsubscribe()
-  subscribe(rsm, "switch", rsmHandler)
-  subscribe(rsm, "switch1", rsmHandler)
-  subscribe(rsm, "switch2", rsmHandler)
-  subscribe(switch1, "switch", switchHandler)
-  subscribe(switch2, "switch", switchHandler)
-  
+  log.debug "Updated with settings: ${settings}"
   initialize()
 }
 
+def initialize() {
+  unschedule()
+  unsubscribe()
+  log.debug "Initializing Dual Relay Adapter v1.0.1"
+  subscribe(rsm,     "switch1", rsmHandler)
+  subscribe(rsm,     "switch2", rsmHandler)
+  subscribeToCommand(switch1, "switch.on", switchHandler)
+  subscribeToCommand(switch1, "switch.off", switchHandler)
+  subscribeToCommand(switch2, "switch.on", switchHandler)
+  subscribeToCommand(switch2, "switch.off", switchHandler)
+}
+
 def switchHandler(evt) {
-  log.debug "switchHandler: ${evt.value}, ${evt.deviceId}, ${evt.source}, ${switch2.id}"
+  log.debug "switchHandler called with event:  name:${evt.name} source:${evt.source} value:${evt.value} isStateChange: ${evt.isStateChange()} isPhysical: ${evt.isPhysical()} isDigital: ${evt.isDigital()} data: ${evt.data} device: ${evt.device}"
   switch (evt.deviceId) {
     case switch1.id:
       switch (evt.value) {
@@ -88,24 +88,24 @@ def switchHandler(evt) {
 }
 
 def rsmHandler(evt) {
-  log.debug "$evt.name $evt.value"
+  log.debug "rsmHandler called with event:  name:${evt.name} source:${evt.source} value:${evt.value} isStateChange: ${evt.isStateChange()} isPhysical: ${evt.isPhysical()} isDigital: ${evt.isDigital()} data: ${evt.data} device: ${evt.device}"
   if (evt.name == "switch1") {
     switch (evt.value) {
       case 'on':
-        switch1.on()
+        switch1.onPhysical()
         break
       case 'off':
-        switch1.off()
+        switch1.offPhysical()
         break
     }
   }
   else if (evt.name == "switch2") {
     switch (evt.value) {
       case 'on':
-        switch2.on()
+        switch2.onPhysical()
         break
       case 'off':
-        switch2.off()
+        switch2.offPhysical()
         break
     }
   }
@@ -113,8 +113,4 @@ def rsmHandler(evt) {
 
 def rsmRefresh() {
   rsm.refresh()
-}
-    
-def initialize() {
-  unschedule()
 }
