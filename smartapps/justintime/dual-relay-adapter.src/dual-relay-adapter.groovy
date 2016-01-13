@@ -49,10 +49,10 @@ def initialize() {
   log.debug "Initializing Dual Relay Adapter v1.0.1"
   subscribe(rsm,     "switch1", rsmHandler)
   subscribe(rsm,     "switch2", rsmHandler)
-  subscribeToCommand(switch1, "switch.on", switchHandler)
-  subscribeToCommand(switch1, "switch.off", switchHandler)
-  subscribeToCommand(switch2, "switch.on", switchHandler)
-  subscribeToCommand(switch2, "switch.off", switchHandler)
+  subscribeToCommand(switch1, "on", switchHandler)
+  subscribeToCommand(switch1, "off", switchHandler)
+  subscribeToCommand(switch2, "on", switchHandler)
+  subscribeToCommand(switch2, "off", switchHandler)
 }
 
 def switchHandler(evt) {
