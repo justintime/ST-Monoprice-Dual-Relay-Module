@@ -46,7 +46,7 @@ def updated() {
 def initialize() {
   unschedule()
   unsubscribe()
-  log.debug "Initializing Dual Relay Adapter v1.0.1"
+  log.debug "Initializing Dual Relay Adapter v1.0.2"
   subscribe(rsm,     "switch1", rsmHandler)
   subscribe(rsm,     "switch2", rsmHandler)
   subscribeToCommand(switch1, "on", switchHandler)
