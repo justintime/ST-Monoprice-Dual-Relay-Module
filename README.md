@@ -45,7 +45,7 @@ SmartThings doesn't really allow you to interact with the individual switches on
 
 #### Installing the SmartApp
 
-1. Copy the code from [dual-relay-adapter.groovy](https://raw.githubusercontent.com/justintime/SmartThings-Monoprice-11990/master/dual-relay-adapter.groovy) into your clipboard.
+1. Copy the code from [dual-relay-adapter.groovy](https://raw.githubusercontent.com/justintime/ST-Monoprice-Dual-Relay-Module/master/smartapps/justintime/dual-relay-adapter.src/dual-relay-adapter.groovy) into your clipboard.
 1. From the IDE, click "My SmartApps", then "New SmartApp", then click the "From Code" tab.
 1. Paste in the code you copied to your clipboard, and click the "Create" button.
 1. From the resulting page, click the "Save" button, then click the "Publish" button, and click "For Me" from the dropdown.
